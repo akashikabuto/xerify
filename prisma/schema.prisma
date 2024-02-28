@@ -1,0 +1,39 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["clientExtensions"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Channel {
+  id           String         @id
+  userId       String
+  receiverId   String?
+  isGroup      Boolean        @default(false)
+  user         String?
+  receiverUser String?
+  senderUser   String?
+  userPhoto    String?
+  receivPhoto  String?
+  workFlowId   String?
+  workFlowName String?
+  topicId      String?
+  topicName    String?
+  accountId    String?
+  Conversation Conversation[]
+}
+
+model Conversation {
+  id        String   @id
+  channelId String
+  createdAt DateTime @default(now())
+  channel   Channel  @relation(fields: [channelId], references: [id])
+  message   String
+  indentity Boolean  @default(false)
+  userId    String
+  user      String
+  userPhoto String?
+}

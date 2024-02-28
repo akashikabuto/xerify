@@ -1,0 +1,11 @@
+services:
+  advanced_api:
+    container_name: advanced_api
+    image: akashi77/xerify
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/usr/src/app
+    environment:
+      JWT_SECRET: ${JWT_SECRET} 
+      DATABASE_URL: ${DATABASE_URL}

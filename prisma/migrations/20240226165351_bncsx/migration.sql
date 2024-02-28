@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE `Channel` ADD COLUMN `topicId` VARCHAR(191) NULL,
+    ADD COLUMN `topicName` VARCHAR(191) NULL,
+    ADD COLUMN `workFlowId` VARCHAR(191) NULL,
+    ADD COLUMN `workFlowName` VARCHAR(191) NULL,
+    MODIFY `isGroup` BOOLEAN NOT NULL DEFAULT false,
+    MODIFY `user` VARCHAR(191) NULL;
