@@ -32,8 +32,9 @@ First download and install [Node JS](https://nodejs.org/en/download/)
 1. Open terminal
 2. Navigate to the directory of cloned project
 3. Run this command for installing all required packages `npm install`
-4. after the completion of the command run another command to have latest migration files `npm run prisma:prod`
-5. after the completion of the above command to run another command to run the application `npm run start:dev`
+4. make a file in the directory named `.env`, then open that file and add `DATABASE_URL=''` and add the database url you want to connect to
+5. after the completion of the command run another command to have latest migration files `npm run prisma:prod`
+6. after the completion of the above command run another command to run the application `npm run start:dev`
 
 ## Technologies used
 
