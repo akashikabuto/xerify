@@ -23,9 +23,12 @@ export class ChatService {
       indentity: boolean;
       fullName: string;
       userId: string;
+      receiverId: string;
+      userPhoto: string;
     },
     user: string,
   ) {
+    console.log({ data });
     const userData = JSON.parse(user);
 
     if (data.message) {
@@ -37,7 +40,8 @@ export class ChatService {
         indentity: data.indentity,
         user: data.fullName,
         createdAt: new Date(),
-        // userPhoto: data.userPhoto,
+        receiverId: data.receiverId,
+        userPhoto: data.userPhoto,
       });
       await this.prisma.conversation.create({
         data: {
@@ -48,7 +52,8 @@ export class ChatService {
           indentity: data.indentity,
           user: data.fullName,
           createdAt: new Date(),
-          // userPhoto: data.userPhoto,
+          receiverId: data.receiverId,
+          userPhoto: data.userPhoto,
         },
       });
     }

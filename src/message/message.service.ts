@@ -11,6 +11,9 @@ export class MessageService {
       where: {
         channelId,
       },
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
     return messages;
   }
