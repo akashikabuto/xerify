@@ -23,6 +23,9 @@ model Channel {
   topicId      String?
   topicName    String?
   accountId    String?
+  companyName  String?
+  companyImage String?
+  role         String?
   Conversation Conversation[]
 }
 
