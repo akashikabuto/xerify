@@ -16,7 +16,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
   async handleConnection(socket: Socket) {
-    // const token = socket.handshake.query.token;
     const data = socket.handshake.query.user;
     console.log({ data });
     if (data) {
@@ -48,6 +47,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       fullName: string;
       userId: string;
       userPhoto: string;
+      receiverId: string;
     },
   ) {
     return this.chatService.sendMessage(this.server, data, socket.data.user);

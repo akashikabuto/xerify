@@ -27,13 +27,14 @@ model Channel {
 }
 
 model Conversation {
-  id        String   @id
-  channelId String
-  createdAt DateTime @default(now())
-  channel   Channel  @relation(fields: [channelId], references: [id])
-  message   String
-  indentity Boolean  @default(false)
-  userId    String
-  user      String
-  userPhoto String?
+  id         String   @id
+  channelId  String
+  createdAt  DateTime @default(now())
+  channel    Channel  @relation(fields: [channelId], references: [id])
+  message    String
+  indentity  Boolean  @default(false)
+  userId     String
+  user       String
+  userPhoto  String?
+  receiverId String?
 }
