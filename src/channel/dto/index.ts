@@ -14,22 +14,21 @@ export class createChannelDto {
   @ApiPropertyOptional({ type: String, required: false })
   receiver_id: string;
   @IsString()
-  @ApiProperty({ type: String, required: true, default: 'Akashi chris' })
+  @ApiProperty({ type: String, required: true })
   fullName: string;
   @IsString()
   @IsOptional()
-  @ApiPropertyOptional({ type: String, required: false, default: 'chris' })
+  @ApiPropertyOptional({ type: String, required: false })
   recFullName: string;
   @IsString()
   @IsOptional()
-  @ApiPropertyOptional({ type: String, required: false, default: 'chris' })
+  @ApiPropertyOptional({ type: String, required: false })
   sendFullName: string;
   @IsString()
   @IsOptional()
   @ApiPropertyOptional({
     type: String,
     required: false,
-    default: 'mmmmmmmmmmmm',
   })
   userPhoto: string;
   @IsString()
@@ -37,7 +36,6 @@ export class createChannelDto {
   @ApiPropertyOptional({
     type: String,
     required: false,
-    default: 'vvvvvvvvvvv',
   })
   receivPhoto: string;
   @IsString()
@@ -45,7 +43,6 @@ export class createChannelDto {
   @ApiPropertyOptional({
     type: String,
     required: false,
-    default: 'gh',
   })
   workFlowId: string;
   @IsString()
@@ -53,7 +50,6 @@ export class createChannelDto {
   @ApiPropertyOptional({
     type: String,
     required: false,
-    default: 'b',
   })
   workFlowName: string;
   @IsString()
@@ -61,7 +57,6 @@ export class createChannelDto {
   @ApiPropertyOptional({
     type: String,
     required: false,
-    default: 'rt',
   })
   topicId: string;
   @IsString()
@@ -69,7 +64,27 @@ export class createChannelDto {
   @ApiPropertyOptional({
     type: String,
     required: false,
-    default: 'as',
   })
   topicName: string;
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    type: String,
+    required: false,
+  })
+  companyName?: string;
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    type: String,
+    required: false,
+  })
+  companyImage?: string;
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    type: String,
+    required: false,
+  })
+  role?: string;
 }
