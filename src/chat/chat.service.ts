@@ -28,7 +28,6 @@ export class ChatService {
     },
     user: string,
   ) {
-    console.log({ data });
     const userData = JSON.parse(user);
 
     if (data.message) {

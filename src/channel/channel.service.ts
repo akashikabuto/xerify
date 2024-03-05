@@ -20,6 +20,9 @@ export class ChannelService {
         senderUser: dto.sendFullName,
         userPhoto: dto.userPhoto,
         receivPhoto: dto.receivPhoto,
+        companyImage: dto.companyImage,
+        companyName: dto.companyName,
+        role: dto.role,
       },
     });
     return channel;
@@ -77,6 +80,9 @@ export class ChannelService {
         topicId: dto.topicId,
         topicName: dto.topicName,
         accountId: dto.account_id,
+        companyImage: dto.companyImage,
+        companyName: dto.companyName,
+        role: dto.role,
       },
     });
     return channel;
