@@ -66,7 +66,7 @@ export class ChannelService {
   async createGroupChannel(dto: createChannelDto): Promise<Channel> {
     const channel = await this.prismaService.channel.create({
       data: {
-        id: uuidv4(),
+        id: dto.workFlowId,
         userId: dto.acc_id,
         user: dto.fullName,
         isGroup: true,
