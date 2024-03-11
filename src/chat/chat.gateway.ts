@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -7,6 +8,7 @@ import {
 } from '@nestjs/websockets';
 // import { ERole } from '@prisma/client';
 import { Server, Socket } from 'socket.io';
+import { createChannelDto } from 'src/channel/dto';
 import { ChatService } from './chat.service';
 
 @WebSocketGateway({ cors: { origin: '*' } })
@@ -51,5 +53,14 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     },
   ) {
     return this.chatService.sendMessage(this.server, data, socket.data.user);
+  }
+
+  @SubscribeMessage('directChannel')
+  createDirectChannel(socket: Socket, data: createChannelDto) {
+    return this.chatService.createDirectChannel(socket,data)
+  }
+  @SubscribeMessage('group')
+  createGroupChannel(socket: Socket, data: createChannelDto) {
+    return this.chatService.createGroupChannel(socket,data)
   }
 }
