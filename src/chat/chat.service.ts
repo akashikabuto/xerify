@@ -1,5 +1,7 @@
+/* eslint-disable */
 import { Injectable } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
+import { createChannelDto } from 'src/channel/dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -57,4 +59,81 @@ export class ChatService {
       });
     }
   }
+
+  async createDirectChannel(socket:Socket,data:createChannelDto){
+    socket.emit('privateChannel',{
+      id: uuidv4(),
+      userId: data.acc_id,
+      user: data.fullName,
+      isGroup: false,
+      receiverId: data.receiver_id,
+      receiverUser: data.recFullName,
+      senderUser: data.sendFullName,
+      userPhoto: data.userPhoto,
+      receivPhoto: data.receivPhoto,
+      companyImage: data.companyImage,
+      companyName: data.companyName,
+      role: data.role,
+    })
+    await this.prisma.channel.create({
+      data: {
+        id: uuidv4(),
+        userId: data.acc_id,
+        user: data.fullName,
+        isGroup: false,
+        receiverId: data.receiver_id,
+        receiverUser: data.recFullName,
+        senderUser: data.sendFullName,
+        userPhoto: data.userPhoto,
+        receivPhoto: data.receivPhoto,
+        companyImage: data.companyImage,
+        companyName: data.companyName,
+        role: data.role,
+      },
+    });
+  }
+
+  async createGroupChannel(socket:Socket,data:createChannelDto){
+    socket.emit('groupChannel',{
+      id: data.workFlowId,
+        userId: data.acc_id,
+        user: data.fullName,
+        isGroup: true,
+        receiverId: data.receiver_id,
+        receiverUser: data.recFullName,
+        senderUser: data.sendFullName,
+        userPhoto: data.userPhoto,
+        receivPhoto: data.receivPhoto,
+        workFlowId: data.workFlowId,
+        workFlowName: data.workFlowName,
+        topicId: data.topicId,
+        topicName: data.topicName,
+        accountId: data.account_id,
+        companyImage: data.companyImage,
+        companyName: data.companyName,
+        role: data.role,
+    })
+    await this.prisma.channel.create({
+      data: {
+        id: data.workFlowId,
+        userId: data.acc_id,
+        user: data.fullName,
+        isGroup: true,
+        receiverId: data.receiver_id,
+        receiverUser: data.recFullName,
+        senderUser: data.sendFullName,
+        userPhoto: data.userPhoto,
+        receivPhoto: data.receivPhoto,
+        workFlowId: data.workFlowId,
+        workFlowName: data.workFlowName,
+        topicId: data.topicId,
+        topicName: data.topicName,
+        accountId: data.account_id,
+        companyImage: data.companyImage,
+        companyName: data.companyName,
+        role: data.role,
+      },
+    });
+  }
+
 }
