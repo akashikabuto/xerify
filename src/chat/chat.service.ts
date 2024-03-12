@@ -27,6 +27,7 @@ export class ChatService {
       userId: string;
       receiverId: string;
       userPhoto: string;
+      role:string
     },
     user: string,
   ) {
@@ -43,6 +44,7 @@ export class ChatService {
         createdAt: new Date(),
         receiverId: data.receiverId,
         userPhoto: data.userPhoto,
+        role:data.role
       });
       await this.prisma.conversation.create({
         data: {
@@ -55,6 +57,7 @@ export class ChatService {
           createdAt: new Date(),
           receiverId: data.receiverId,
           userPhoto: data.userPhoto,
+          role:data.role
         },
       });
     }

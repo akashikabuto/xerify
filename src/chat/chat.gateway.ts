@@ -50,6 +50,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       userId: string;
       userPhoto: string;
       receiverId: string;
+      role:string
     },
   ) {
     return this.chatService.sendMessage(this.server, data, socket.data.user);
