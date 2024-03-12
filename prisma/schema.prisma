@@ -40,4 +40,5 @@ model Conversation {
   user       String
   userPhoto  String?
   receiverId String?
+  role   String?
 }
