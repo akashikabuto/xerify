@@ -51,6 +51,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       userPhoto: string;
       receiverId: string;
       role:string
+      accId:string
     },
   ) {
     return this.chatService.sendMessage(this.server, data, socket.data.user);
@@ -58,10 +59,19 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('directChannel')
   createDirectChannel(socket: Socket, data: createChannelDto) {
-    return this.chatService.createDirectChannel(socket,data)
+    console.log({test:data})
+    return this.chatService.createDirectChannel(socket,data,this.server)
   }
-  @SubscribeMessage('group')
-  createGroupChannel(socket: Socket, data: createChannelDto) {
-    return this.chatService.createGroupChannel(socket,data)
+  // @SubscribeMessage('group')
+  // createGroupChannel(socket: Socket, data: createChannelDto) {
+  //   return this.chatService.createGroupChannel(socket,data,this.server)
+  // }
+
+
+  @SubscribeMessage("direct")
+  joinDirect(socket: Socket, channel: string) {
+    return this.chatService.JoinChannel(socket, channel);
   }
+  
+
 }

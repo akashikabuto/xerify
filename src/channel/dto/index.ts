@@ -87,4 +87,11 @@ export class createChannelDto {
     required: false,
   })
   role?: string;
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    type: String,
+    required: false,
+  })
+  id?: string;
 }
