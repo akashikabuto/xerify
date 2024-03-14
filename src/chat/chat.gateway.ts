@@ -59,7 +59,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('directChannel')
   createDirectChannel(socket: Socket, data: createChannelDto) {
-    console.log({test:data})
     return this.chatService.createDirectChannel(socket,data,this.server)
   }
   // @SubscribeMessage('group')

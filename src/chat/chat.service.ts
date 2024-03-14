@@ -71,11 +71,12 @@ export class ChatService {
     data: createChannelDto,
     server: Server,
   ) {
-    console.log({tyty:data})
     if(data.id){
-      console.log({id:data.id})
+      setTimeout(()=>{
       server.to(data.id).emit('channelCreated', data);
-      socket.emit('channelCreated', data)
+      },1000)
+      server.emit('channelUpdated', data.id)
+
     }
   }
 
