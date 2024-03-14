@@ -27,12 +27,13 @@ export class ChatService {
       userId: string;
       receiverId: string;
       userPhoto: string;
-      role:string
+      role: string;
+      accId: string;
     },
     user: string,
   ) {
     const userData = JSON.parse(user);
-
+    console.log({ userData }, { data });
     if (data.message) {
       server.to(data.channel).emit('Message', {
         id: uuidv4(),
@@ -44,7 +45,8 @@ export class ChatService {
         createdAt: new Date(),
         receiverId: data.receiverId,
         userPhoto: data.userPhoto,
-        role:data.role
+        role: data.role,
+        accId: data.accId,
       });
       await this.prisma.conversation.create({
         data: {
@@ -57,86 +59,73 @@ export class ChatService {
           createdAt: new Date(),
           receiverId: data.receiverId,
           userPhoto: data.userPhoto,
-          role:data.role
+          role: data.role,
+          accId: data.accId,
         },
       });
     }
   }
 
-  async createDirectChannel(socket:Socket,data:createChannelDto){
-    socket.emit('privateChannel',{
-      id: uuidv4(),
-      userId: data.acc_id,
-      user: data.fullName,
-      isGroup: false,
-      receiverId: data.receiver_id,
-      receiverUser: data.recFullName,
-      senderUser: data.sendFullName,
-      userPhoto: data.userPhoto,
-      receivPhoto: data.receivPhoto,
-      companyImage: data.companyImage,
-      companyName: data.companyName,
-      role: data.role,
-    })
-    await this.prisma.channel.create({
-      data: {
-        id: uuidv4(),
-        userId: data.acc_id,
-        user: data.fullName,
-        isGroup: false,
-        receiverId: data.receiver_id,
-        receiverUser: data.recFullName,
-        senderUser: data.sendFullName,
-        userPhoto: data.userPhoto,
-        receivPhoto: data.receivPhoto,
-        companyImage: data.companyImage,
-        companyName: data.companyName,
-        role: data.role,
-      },
-    });
+  async createDirectChannel(
+    socket: Socket,
+    data: createChannelDto,
+    server: Server,
+  ) {
+    if(data.id){
+      setTimeout(()=>{
+      server.to(data.id).emit('channelCreated', data);
+      },1000)
+      server.emit('channelUpdated', data.id)
+
+    }
   }
 
-  async createGroupChannel(socket:Socket,data:createChannelDto){
-    socket.emit('groupChannel',{
-      id: data.workFlowId,
-        userId: data.acc_id,
-        user: data.fullName,
-        isGroup: true,
-        receiverId: data.receiver_id,
-        receiverUser: data.recFullName,
-        senderUser: data.sendFullName,
-        userPhoto: data.userPhoto,
-        receivPhoto: data.receivPhoto,
-        workFlowId: data.workFlowId,
-        workFlowName: data.workFlowName,
-        topicId: data.topicId,
-        topicName: data.topicName,
-        accountId: data.account_id,
-        companyImage: data.companyImage,
-        companyName: data.companyName,
-        role: data.role,
-    })
-    await this.prisma.channel.create({
-      data: {
-        id: data.workFlowId,
-        userId: data.acc_id,
-        user: data.fullName,
-        isGroup: true,
-        receiverId: data.receiver_id,
-        receiverUser: data.recFullName,
-        senderUser: data.sendFullName,
-        userPhoto: data.userPhoto,
-        receivPhoto: data.receivPhoto,
-        workFlowId: data.workFlowId,
-        workFlowName: data.workFlowName,
-        topicId: data.topicId,
-        topicName: data.topicName,
-        accountId: data.account_id,
-        companyImage: data.companyImage,
-        companyName: data.companyName,
-        role: data.role,
-      },
-    });
+  async createGroupChannel(
+    socket: Socket,
+    data: createChannelDto,
+    server: Server,
+  ) {
+    //  const channel = await this.prisma.channel.create({
+    //     data: {
+    //       id: data.workFlowId,
+    //       userId: data.acc_id,
+    //       user: data.fullName,
+    //       isGroup: true,
+    //       receiverId: data.receiver_id,
+    //       receiverUser: data.recFullName,
+    //       senderUser: data.sendFullName,
+    //       userPhoto: data.userPhoto,
+    //       receivPhoto: data.receivPhoto,
+    //       workFlowId: data.workFlowId,
+    //       workFlowName: data.workFlowName,
+    //       topicId: data.topicId,
+    //       topicName: data.topicName,
+    //       accountId: data.account_id,
+    //       companyImage: data.companyImage,
+    //       companyName: data.companyName,
+    //       role: data.role,
+    //     },
+    //   });
+    //   socket.join(channel.id)
+    //   server.to(channel.id).emit('groupChannel',{
+    //     id: data.workFlowId,
+    //       userId: data.acc_id,
+    //       user: data.fullName,
+    //       isGroup: true,
+    //       receiverId: data.receiver_id,
+    //       receiverUser: data.recFullName,
+    //       senderUser: data.sendFullName,
+    //       userPhoto: data.userPhoto,
+    //       receivPhoto: data.receivPhoto,
+    //       workFlowId: data.workFlowId,
+    //       workFlowName: data.workFlowName,
+    //       topicId: data.topicId,
+    //       topicName: data.topicName,
+    //       accountId: data.account_id,
+    //       companyImage: data.companyImage,
+    //       companyName: data.companyName,
+    //       role: data.role,
+    //       channelId:channel.id
+    //   })
   }
-
 }

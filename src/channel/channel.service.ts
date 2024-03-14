@@ -64,27 +64,32 @@ export class ChannelService {
   }
 
   async createGroupChannel(dto: createChannelDto): Promise<Channel> {
-    const channel = await this.prismaService.channel.create({
-      data: {
-        id: dto.workFlowId,
-        userId: dto.acc_id,
-        user: dto.fullName,
-        isGroup: true,
-        receiverId: dto.receiver_id,
-        receiverUser: dto.recFullName,
-        senderUser: dto.sendFullName,
-        userPhoto: dto.userPhoto,
-        receivPhoto: dto.receivPhoto,
-        workFlowId: dto.workFlowId,
-        workFlowName: dto.workFlowName,
-        topicId: dto.topicId,
-        topicName: dto.topicName,
-        accountId: dto.account_id,
-        companyImage: dto.companyImage,
-        companyName: dto.companyName,
-        role: dto.role,
-      },
-    });
-    return channel;
+    console.log({ dto });
+    try {
+      const channel = await this.prismaService.channel.create({
+        data: {
+          id: dto.workFlowId,
+          userId: dto.acc_id,
+          user: dto.fullName,
+          isGroup: true,
+          receiverId: dto.receiver_id,
+          receiverUser: dto.recFullName,
+          senderUser: dto.sendFullName,
+          userPhoto: dto.userPhoto,
+          receivPhoto: dto.receivPhoto,
+          workFlowId: dto.workFlowId,
+          workFlowName: dto.workFlowName,
+          topicId: dto.topicId,
+          topicName: dto.topicName,
+          accountId: dto.account_id,
+          companyImage: dto.companyImage,
+          companyName: dto.companyName,
+          role: dto.role,
+        },
+      });
+      return channel;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 }
