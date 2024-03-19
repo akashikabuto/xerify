@@ -3,30 +3,20 @@ import { NestFactory } from '@nestjs/core';
 import { configure } from './__shared__/config/app.config';
 import { AppModule } from './app.module';
 import * as fs from 'fs';
+import * as path from 'path';
 
 async function bootstrap() {
-
+  const certPath = path.resolve(__dirname, '..', 'server.cert');
+  const keyPath = path.resolve(__dirname, '..', 'server.key');
   const httpsOptions = {
-    key: fs.readFileSync('/home/ec2-user/certs/xertify2023.key'),
-    cert: fs.readFileSync(
-      '/home/ec2-user/certs/xertify2023.crt',
-    ),
+    key: fs.readFileSync(path.resolve(keyPath)),
+    cert: fs.readFileSync(path.resolve(certPath)),
   };
 
   const app = await NestFactory.create(AppModule, {
     httpsOptions,
     rawBody: true,
   });
-
-  //Habilitar CORS
-  app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: '*',
-   });
-  //const app = await NestFactory.create(AppModule, {
-  //  rawBody: true,
-  //});
 
   configure(app);
 
