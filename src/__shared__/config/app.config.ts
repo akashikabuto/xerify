@@ -1,9 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { IoAdapter } from '@nestjs/platform-socket.io';
+// import { IoAdapter } from '@nestjs/platform-socket.io';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ChatGateway } from 'src/chat/chat.gateway';
 import { IAppConfig } from '../interfaces';
+import { HttpsIoAdapter } from '../https-io.adapter';
 
 export function appConfig(): IAppConfig {
   return {
@@ -43,7 +44,7 @@ export function configureSwagger(app: INestApplication): void {
 
 export function chatSetup(app: INestApplication): void {
   app.get(ChatGateway);
-  app.useWebSocketAdapter(new IoAdapter(app));
+  app.useWebSocketAdapter(new HttpsIoAdapter(app));
 }
 
 export function configure(app: INestApplication): void {
